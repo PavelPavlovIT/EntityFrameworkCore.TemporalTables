@@ -34,7 +34,7 @@ namespace EntityFrameworkCore.TemporalTables.TestApp
             //    });
             //});
 
-            modelBuilder.Entity<Role>(b => b.PreventTemporalTable());
+            //modelBuilder.Entity<Role>(b => b.PreventTemporalTable());
         }
     }
 }

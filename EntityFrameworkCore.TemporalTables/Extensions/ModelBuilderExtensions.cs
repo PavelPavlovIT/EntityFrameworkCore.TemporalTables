@@ -1,11 +1,28 @@
-﻿using EntityFrameworkCore.TemporalTables.Cache;
+﻿using EntityFrameworkCore.TemporalTables.Attributes;
+using EntityFrameworkCore.TemporalTables.Cache;
 using Microsoft.EntityFrameworkCore;
+using System;
 using System.Linq;
 
 namespace EntityFrameworkCore.TemporalTables.Extensions
 {
     public static class ModelBuilderExtensions
     {
+
+        private static bool GetTemporalTablesAttribute(Type type)
+        {
+            TemporalTablesAttribute CustomAttribute = (TemporalTablesAttribute)Attribute.GetCustomAttribute(type, typeof(TemporalTablesAttribute));
+
+            if (CustomAttribute != null)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
+
         /// <summary>
         /// Configure all tables to be temporal by default.
         /// You may skip this method and register them manually by using <see cref="EntityTypeBuilderExtensions.UseTemporalTable" /> method.
@@ -18,7 +35,8 @@ namespace EntityFrameworkCore.TemporalTables.Extensions
 
             foreach (var entityType in entityTypes)
             {
-                TemporalEntitiesCache.Add(entityType);
+                if (GetTemporalTablesAttribute(entityType.ClrType))
+                    TemporalEntitiesCache.Add(entityType);
             }
         }
 

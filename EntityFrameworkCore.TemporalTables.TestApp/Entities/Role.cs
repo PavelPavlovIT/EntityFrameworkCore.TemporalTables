@@ -1,5 +1,8 @@
-﻿namespace EntityFrameworkCore.TemporalTables.TestApp.Entities
+﻿using EntityFrameworkCore.TemporalTables.Attributes;
+
+namespace EntityFrameworkCore.TemporalTables.TestApp.Entities
 {
+    [TemporalTables]
     public class Role
     {
         public int Id { get; set; }
